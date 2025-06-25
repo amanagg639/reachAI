@@ -1,6 +1,7 @@
 package org.crm.reachai.service;
 
 import org.crm.reachai.dto.*;
+import org.crm.reachai.exception.UserAlreadyExistException;
 import org.crm.reachai.mapper.UserMapper;
 import org.crm.reachai.model.User;
 import org.crm.reachai.repository.UserRepository;
@@ -13,6 +14,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class AuthService {
@@ -30,6 +33,10 @@ public class AuthService {
     private JwtUtil jwtUtil;
 
     public ResponseEntity<Response<AuthResponse>> signUp(SignUpRequest signUpRequest) {
+        if(userRepository.findByUserName(signUpRequest.getUserName()).isPresent() ||
+        userRepository.findByEmail(signUpRequest.getEmail()).isPresent()) {
+            throw new UserAlreadyExistException("User already exists");
+        }
         User user = userMapper.toEntity(signUpRequest);
         userRepository.save(user);
 
