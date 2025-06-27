@@ -3,14 +3,11 @@ package org.crm.reachai.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.crm.reachai.enums.RoleName;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthResponse {
-    private Long id;
-    private String userName;
+public class UpdatePassword {
     private String email;
-    private RoleName role;
+    private String password;
 }

@@ -25,6 +25,7 @@ public class UserMapper {
 
     public AuthResponse toAuthResponse(User user) {
         AuthResponse authResponse = new AuthResponse();
+        authResponse.setId(user.getId());
         authResponse.setUserName(user.getUsername());
         authResponse.setRole(user.getRole());
         authResponse.setEmail(user.getEmail());
@@ -35,6 +36,7 @@ public class UserMapper {
     public JwtResponse toJwtResponse(User user, String token) {
          JwtResponse jwtResponse = new JwtResponse();
          jwtResponse.setToken(token);
+         jwtResponse.setId(user.getId());
          jwtResponse.setUserName(user.getUsername());
          jwtResponse.setRole(user.getRole());
          jwtResponse.setEmail(user.getEmail());
